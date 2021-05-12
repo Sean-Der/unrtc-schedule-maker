@@ -40,7 +40,7 @@ div.dataTables_wrapper  div.dataTables_filter input::-ms-input-placeholder { /* 
 
 body {
   /* background: url("bg-dark.jpg") no-repeat scroll 0px 100% / cover transparent; */
-  background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd);
+  /* background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd); */
   font-family: 'Roboto', sans-serif;
 }
 
