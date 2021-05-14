@@ -1,9 +1,10 @@
-/* global $ fetch */
+/* global $ fetch bootstrap */
 
 $(document).ready(function () {
   let table = null
+  let errorModal = new bootstrap.Modal(document.getElementById('errorModal'), {});
 
-  let populateSessions = () => {
+  const populateSessions = () => {
     fetch('/sessions')
       .then(response => response.json())
       .then(data => {
@@ -25,28 +26,23 @@ $(document).ready(function () {
             search: '_INPUT_'
           },
           columns: [
-            {data: 'duration'},
-            {data: 'time'},
-            {data: 'name'},
-            {data: 'host'},
-            {data: 'description'}
+            { data: 'duration' },
+            { data: 'time' },
+            { data: 'name' },
+            { data: 'host' },
+            { data: 'description' }
           ]
         })
         $('.dataTables_length').addClass('bs-select')
 
-        $('#scheduleTable tbody').on('click', 'button', function () {
-          let data = table.row($(this).parents('tr')).data()
-          window.alert(`${data[1]}  clicked!`)
-        })
-        // full row clickable with data-href
-        $('#scheduleTable tbody tr').click(function () {
-          window.location.href = $(this).data('href')
-        })
+        $('#scheduleTable tbody').on('click', 'tr', event => {
+          window.open(`https://unrtc.co/group/${event.currentTarget.rowIndex}`)
+         })
       })
   }
 
   $('#submit-session-button').click(() => {
-    let data = {
+    const data = {
       time: 'Unscheduled',
       name: $('#inputSessionName').val(),
       host: $('#inputHostName').val(),
@@ -62,7 +58,7 @@ $(document).ready(function () {
       body: JSON.stringify(data)
     }).then(response => {
       if (response.status !== 200) {
-        window.alert('Session was not created')
+        errorModal.show()
       } else {
         $('input, textarea').each((i, el) => {
           $(el).val('')
