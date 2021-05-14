@@ -19,7 +19,7 @@ $(document).ready(function () {
         table = $('#scheduleTable').DataTable({
           data: data,
           paging: false,
-          ordering: false,
+          // ordering: false,
           bInfo: false,
           fixedColumns: {
             leftColumns: 1
@@ -27,6 +27,7 @@ $(document).ready(function () {
           language: {
             search: '_INPUT_'
           },
+          order: [[ 2, "asc" ]],
           columns: [
             {
               data: null,
@@ -99,7 +100,7 @@ $(document).ready(function () {
   $('#update-session-button').click(() => {
     const data = {
       id: parseInt($('#updateSessionModal #inputSessionId').val()),
-      time: $('#updateSessionModal #inputTime').val() || 'Unscheduled',
+      time: $('#updateSessionModal #inputSessionTime').val() || 'Unscheduled',
       name: $('#updateSessionModal #inputSessionName').val(),
       host: $('#updateSessionModal #inputHostName').val(),
       hostlink: $('#updateSessionModal #inputHostLink').val(),
@@ -136,18 +137,19 @@ $(document).ready(function () {
     $('#updateSessionModal #inputHostLink').val(data.hostlink);
     $('#updateSessionModal #inputDescription').val(data.description);
     $('#updateSessionModal #inputDuration').val(data.duration);
-    $('#updateSessionModal #inputTime').val(data.time);
+    $('#updateSessionModal #inputSessionTime').val(data.time);
   }
 
-  $('#updateSessionModal').on('hide.bs.modal',function(e) {
-    $('#updateSessionModal #inputSessionId').val('');
-    $('#updateSessionModal #inputSessionName').val('');
-    $('#updateSessionModal #inputHostName').val('');
-    $('#updateSessionModal #inputHostLink').val('');
-    $('#updateSessionModal #inputDescription').val('');
-    $('#updateSessionModal #inputDuration').val('');
-    $('#updateSessionModal #inputTime').val('');
-  });
+  // don't use - resets value to early
+  // $('#updateSessionModal').on('hide.bs.modal',function(e) {
+  //   $('#updateSessionModal #inputSessionId').val('');
+  //   $('#updateSessionModal #inputSessionName').val('');
+  //   $('#updateSessionModal #inputHostName').val('');
+  //   $('#updateSessionModal #inputHostLink').val('');
+  //   $('#updateSessionModal #inputDescription').val('');
+  //   $('#updateSessionModal #inputDuration').val('');
+  //   $('#updateSessionModal #inputSessionTime').val('');
+  // });
 
   populateSessions()
 })
