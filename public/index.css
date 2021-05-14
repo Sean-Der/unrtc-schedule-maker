@@ -44,6 +44,13 @@ div.dataTables_wrapper button.update {
   margin-left: 10px;
 }
 
+div.dataTables_wrapper .dt-wide-column {
+  max-width: 250px;
+  min-width: 200px;
+}
+
+
+
 body {
   /* background: url("bg-dark.jpg") no-repeat scroll 0px 100% / cover transparent; */
   /* background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd); */

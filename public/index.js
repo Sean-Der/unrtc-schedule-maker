@@ -32,13 +32,14 @@ $(document).ready(function () {
             {
               data: null,
               className: "dt-nowrap",
-              defaultContent: "<button class='btn btn-secondary join'>Join</button><button class='btn btn-secondary update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>"
+              defaultContent: "<button class='btn btn-success join'>Join</button><button class='btn btn-light update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>"
             },
             { data: 'id', visible: false },
-            { data: 'time' },
-            { data: 'name' },
+            { data: 'time', className: "dt-nowrap"},
+            { data: 'name', className: "dt-wide-column" },
             {
               data: 'host',
+              className: "dt-nowrap",
               fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                 if (oData.hostlink) {
                   $(nTd).html(`<a href='${oData.hostlink}' target='_blank'>${oData.host}</a>`)
@@ -46,7 +47,12 @@ $(document).ready(function () {
               }
             },
             { data: 'description' },
-            { data: 'duration' }
+            { data: 'duration',
+              className: "dt-nowrap",
+              render: function (value) {
+                return value + ' min'
+              }
+            }
           ]
         })
         $('.dataTables_length').addClass('bs-select')
