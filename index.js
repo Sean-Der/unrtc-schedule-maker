@@ -94,8 +94,6 @@ new Promise((resolve, reject) => {
       vals.push(req.body[field])
     }
 
-    console.log(vals)
-
     db.run(`UPDATE sessions
       SET
         duration = ?,
