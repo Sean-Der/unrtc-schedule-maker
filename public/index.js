@@ -31,6 +31,7 @@ $(document).ready(function () {
           columns: [
             {
               data: null,
+              className: "dt-nowrap",
               defaultContent: "<button class='btn btn-secondary join'>Join</button><button class='btn btn-secondary update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>"
             },
             { data: 'id', visible: false },
