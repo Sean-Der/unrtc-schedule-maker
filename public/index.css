@@ -11,31 +11,37 @@ table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
 }
 
+table.dataTable tbody td {
+  vertical-align: middle;
+}
+
 div.dataTables_wrapper  div.dataTables_filter {
   width: 100%;
-  float: none;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
 }
 
 div.dataTables_wrapper  div.dataTables_filter input {
+  margin-left: 0;
   font-size: 1.4em;
   border-radius: 5px;
   border: 2px solid #fff 0.8;
-  color: #fff;
+  color: #333;
+  background-image: url('search.svg');
+  background-repeat: no-repeat;
+  background-position: center right !important;
 }
 
-div.dataTables_wrapper  div.dataTables_filter input {
-    background-image: url('search.svg');
-    background-repeat: no-repeat;
-    background-position: center right !important;
-}
 
 div.dataTables_wrapper  div.dataTables_filter input::placeholder, /* Chrome, Firefox, Opera, Safari 10.1+ */
 div.dataTables_wrapper  div.dataTables_filter input:-ms-input-placeholder, /* Internet Explorer 10-11 */
 div.dataTables_wrapper  div.dataTables_filter input::-ms-input-placeholder { /* Microsoft Edge */
   color: #fff !important;
   opacity: 1; /* Firefox */
+}
+
+div.dataTables_wrapper button.join {
+  margin-bottom: 10px;
 }
 
 body {
@@ -59,7 +65,7 @@ nav {
 }
 
 main {
-  padding: 50px 0;
+  padding: 0 0 50px 0;
 }
 
 #scheduleTable {
