@@ -57,6 +57,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.container {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 header {
   margin: 3em 0;
 }
@@ -77,10 +82,12 @@ main {
 
 #scheduleTable {
   background: #fff;
-  padding: 10px 15px;
+  padding: 0;
   border: 0;
-  -webkit-box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10);
-  box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10);
+  border-collapse:separate;
+  border-spacing: 0 20px;
+  /* -webkit-box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10);
+  box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10); */
 }
 
 #scheduleTable thead {
@@ -93,21 +100,28 @@ main {
 
 #scheduleTable th {
   font-weight: 600;
+  font-size: 1.3em;
   border: 0;
+  text-align: center;
   color: #333;
   white-space: nowrap;
   padding: 20px 15px;
+  background: none !important;
 }
 
 #scheduleTable tbody tr {
-  border-top: 1px ;
-  border-bottom: 0;
+  border: 0;
+  border-radius: 15px;
+  padding-top: 15px;
   background: transparent;
+  -webkit-box-shadow: 0px 0px 0px 20px rgba(0,0,0,0.10);
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.10);
   /* cursor: pointer; */
 }
 
 #scheduleTable tbody tr:hover {
-  background: rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0px 0px 0px 20px rgba(0,0,0,0.20);
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.20);
 }
 
 #scheduleTable td {

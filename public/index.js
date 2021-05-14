@@ -29,11 +29,6 @@ $(document).ready(function () {
           },
           order: [[2, 'asc']],
           columns: [
-            {
-              data: null,
-              className: "dt-nowrap",
-              defaultContent: "<button class='btn btn-success join'>Join</button><button class='btn btn-light update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>"
-            },
             { data: 'id', visible: false },
             { data: 'time', className: "dt-nowrap"},
             { data: 'name', className: "dt-wide-column" },
@@ -52,7 +47,12 @@ $(document).ready(function () {
               render: function (value) {
                 return value + ' min'
               }
-            }
+            },
+            {
+              data: null,
+              className: "dt-nowrap",
+              defaultContent: "<button class='btn btn-success join'>Join</button><button class='btn btn-light update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>"
+            },
           ]
         })
         $('.dataTables_length').addClass('bs-select')
