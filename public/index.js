@@ -20,6 +20,7 @@ $(document).ready(function () {
         console.log("populateSessions data", data);
 
         table = $("#scheduleTable").DataTable({
+          responsive: true,
           data: data,
           paging: false,
           // ordering: false,
