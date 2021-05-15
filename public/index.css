@@ -8,34 +8,34 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
-  bottom: .5em;
+  bottom: 0.5em;
 }
 
 table.dataTable tbody td {
   vertical-align: middle;
 }
 
-div.dataTables_wrapper  div.dataTables_filter {
+div.dataTables_wrapper div.dataTables_filter {
   width: 100%;
   text-align: left;
   margin-bottom: 10px;
 }
 
-div.dataTables_wrapper  div.dataTables_filter input {
+div.dataTables_wrapper div.dataTables_filter input {
   margin-left: 0;
   font-size: 1.4em;
   border-radius: 5px;
   border: 2px solid #fff 0.8;
   color: #333;
-  background-image: url('search.svg');
+  background-image: url("search.svg");
   background-repeat: no-repeat;
   background-position: center right !important;
 }
 
-
 div.dataTables_wrapper  div.dataTables_filter input::placeholder, /* Chrome, Firefox, Opera, Safari 10.1+ */
 div.dataTables_wrapper  div.dataTables_filter input:-ms-input-placeholder, /* Internet Explorer 10-11 */
-div.dataTables_wrapper  div.dataTables_filter input::-ms-input-placeholder { /* Microsoft Edge */
+div.dataTables_wrapper  div.dataTables_filter input::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: #fff !important;
   opacity: 1; /* Firefox */
 }
@@ -49,17 +49,15 @@ div.dataTables_wrapper .dt-wide-column {
   min-width: 200px;
 }
 
-
-
 body {
   /* background: url("bg-dark.jpg") no-repeat scroll 0px 100% / cover transparent; */
   /* background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd); */
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .container {
-    margin-left: 0px;
-    margin-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 header {
@@ -69,7 +67,7 @@ header {
 header h1 {
   font-weight: 600;
   color: #fff;
-  text-shadow: 0px 0px 4px rgba(255,255,255,0.2);
+  text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.2);
 }
 
 nav {
@@ -84,7 +82,7 @@ main {
   background: #fff;
   padding: 0;
   border: 0;
-  border-collapse:separate;
+  border-collapse: separate;
   border-spacing: 0 20px;
   /* -webkit-box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10);
   box-shadow: 0px 1px 9px 5px rgba(255,255,255,0.10); */
@@ -114,18 +112,22 @@ main {
   border-radius: 15px;
   padding-top: 15px;
   background: transparent;
-  -webkit-box-shadow: 0px 0px 0px 20px rgba(0,0,0,0.10);
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.10);
+  -webkit-box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
   /* cursor: pointer; */
 }
 
 #scheduleTable tbody tr:hover {
-  -webkit-box-shadow: 0px 0px 0px 20px rgba(0,0,0,0.20);
-  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.20);
+  -webkit-box-shadow: 0px 0px 0px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
 }
 
 #scheduleTable td {
   color: #666;
   border-bottom: 0;
   padding: 20px 15px;
+}
+
+.dragHandle {
+  cursor: pointer;
 }
