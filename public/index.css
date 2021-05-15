@@ -50,9 +50,11 @@ div.dataTables_wrapper .dt-wide-column {
 }
 
 body {
-  /* background: url("bg-dark.jpg") no-repeat scroll 0px 100% / cover transparent; */
-  /* background: -webkit-linear-gradient(bottom, #c471f5, #fa71cd); */
   font-family: "Roboto", sans-serif;
+}
+
+a {
+  color: rgb(55, 53, 47);
 }
 
 .container {
@@ -90,6 +92,7 @@ main {
 
 #scheduleTable thead {
   border: 0;
+  display: none;
 }
 
 #scheduleTable tbody {
@@ -126,8 +129,55 @@ main {
   color: #666;
   border-bottom: 0;
   padding: 20px 15px;
+
+}
+
+.session-item {
+  width: 100%;
+}
+
+.session-item .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.session-item .header small {
+  border-radius: 5px;
+  padding: .2em .4em;
+  background: rgba(135,131,120,.15);
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,Courier;
+}
+
+.session-item .header h3 {
+  margin-top: 0.5rem;
+  color: rgb(55, 53, 47);
+  font-weight: bold;
+}
+
+.session-item .summary {
+  white-space: normal;
+}
+
+
+.session-item .description {
+  margin-top: 10px;
+  white-space: normal;
 }
 
 .dragHandle {
   cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: .5rem;
+}
+
+/* .invalid class prevents CSS from automatically applying */
+.invalid input:required:invalid {
+  background: #BE4C54;
+}
+
+/* Mark valid inputs during .invalid state */
+.invalid input:required:valid {
+  background: #17D654;
 }

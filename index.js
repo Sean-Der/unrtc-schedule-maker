@@ -5,7 +5,6 @@ const _ = require('lodash')
 const HTTP_PORT = 5000
 const SCHEMA = `CREATE TABLE IF NOT EXISTS sessions(
 id INTEGER PRIMARY KEY,
-deleted bool,
 duration string,
 time string,
 name string,
@@ -33,10 +32,10 @@ new Promise((resolve, reject) => {
   })
 }).then(() => {
   app.get('/sessions', (req, res) => {
-    db.all('SELECT * from sessions WHERE deleted = false', [], (err, rows) => {
+    db.all(`SELECT * from sessions`, [], (err, rows) => {
       if (err) {
-        res.status(400)
-        res.end(`Failed to fetch sessions ${err.message}`)
+        res.sendStatus(400)
+        console.error(`Failed to fetch sessions ${err.message}`)
         return
       }
 
@@ -45,20 +44,20 @@ new Promise((resolve, reject) => {
   })
 
   app.post('/session', (req, res) => {
-    const vals = []
-    for (const field of ['duration', 'time', 'name', 'host', 'hostlink', 'description']) {
+    let vals = []
+    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description']) {
       if (isEmptyString(req.body[field])) {
-        res.status(400)
-        res.end(`Failed create session missing value ${field}`)
+        res.sendStatus(400)
+        console.error(`Failed create session missing value ${field}`)
         return
       }
       vals.push(req.body[field])
     }
 
-    db.run('INSERT INTO sessions(deleted, duration, time, name, host, hostlink, description) VALUES(false, ?, ?, ?, ?, ?, ?)', vals, err => {
+    db.run(`INSERT INTO sessions(duration, time, name, host, hostlink, description) VALUES(?, ?, ?, ?, ?, ?)`, vals, err => {
       if (err) {
-        res.status(400)
-        res.end(`Failed insert session ${err.message}`)
+        res.sendStatus(400)
+        console.error(`Failed insert session ${err.message}`)
         return
       }
 
@@ -67,32 +66,18 @@ new Promise((resolve, reject) => {
   })
 
   app.put('/session', (req, res) => {
-    const vals = []
-    for (const field of ['duration', 'time', 'name', 'host', 'hostlink', 'description', 'deleted', 'id']) {
-      if (field === 'id') {
-        if (!_.isNumber(req.body[field])) {
-          res.status(400)
-          res.end(`Failed UPDATE session missing value ${field}`)
-          return
-        }
-      } else if (field === 'deleted') {
-        if (req.body[field] === 'false') {
-          req.body[field] = false
-        } else if (req.body[field] === 'true') {
-          req.body[field] = true
-        } else {
-          res.status(400)
-          res.end(`Invalid value for deleted ${req.body[field]}`)
-          return
-        }
-      } else if (isEmptyString(req.body[field])) {
-        res.status(400)
-        res.end(`Failed UPDATE session missing value ${field}`)
-        return
-      }
-
+    let vals = []
+    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description', 'id']) {
+      console.log('field', field)
+      // if (isEmptyString(req.body[field])) {
+      //   res.sendStatus(400)
+      //   console.error(`Failed UPDATE session missing value ${field}`)
+      //   return
+      // }
       vals.push(req.body[field])
     }
+
+    console.log('vals', vals);
 
     db.run(`UPDATE sessions
       SET
@@ -101,12 +86,11 @@ new Promise((resolve, reject) => {
         name = ?,
         host = ?,
         hostlink = ?,
-        description = ?,
-        deleted = ?
+        description = ?
       WHERE id = ?`, vals, err => {
       if (err) {
-        res.status(400)
-        res.end(`Failed UPDATE session missing value ${err.message}`)
+        res.sendStatus(400)
+        console.error(`Failed UPDATE session ${err.message}`)
         return
       }
 
