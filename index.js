@@ -10,7 +10,8 @@ time string,
 name string,
 host string,
 hostlink string,
-description string)`
+description string,
+deleted bool)`
 
 const app = express()
 
@@ -45,16 +46,16 @@ new Promise((resolve, reject) => {
 
   app.post('/session', (req, res) => {
     let vals = []
-    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description', 'deleted']) {
-      if (isEmptyString(req.body[field])) {
-        res.sendStatus(400)
-        console.error(`Failed create session missing value ${field}`)
-        return
-      }
+    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description']) {
+      // if (isEmptyString(req.body[field])) {
+      //   res.sendStatus(400)
+      //   console.error(`Failed create session missing value ${field}`)
+      //   return
+      // }
       vals.push(req.body[field])
     }
 
-    db.run(`INSERT INTO sessions(duration, time, name, host, hostlink, description, deleted) VALUES(?, ?, ?, ?, ?, ?, ?)`, vals, err => {
+    db.run(`INSERT INTO sessions(duration, time, name, host, hostlink, description) VALUES(?, ?, ?, ?, ?, ?)`, vals, err => {
       if (err) {
         res.sendStatus(400)
         console.error(`Failed insert session ${err.message}`)
@@ -67,8 +68,8 @@ new Promise((resolve, reject) => {
 
   app.put('/session', (req, res) => {
     let vals = []
-    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description', 'id', 'deleted']) {
-      console.log('field', field)
+    for (let field of ['duration', 'time', 'name', 'host', 'hostlink', 'description', 'id']) {
+      // console.log('field', field)
       // if (isEmptyString(req.body[field])) {
       //   res.sendStatus(400)
       //   console.error(`Failed UPDATE session missing value ${field}`)
@@ -87,7 +88,6 @@ new Promise((resolve, reject) => {
         host = ?,
         hostlink = ?,
         description = ?
-        deleted = ?
       WHERE id = ?`, vals, err => {
       if (err) {
         res.sendStatus(400)

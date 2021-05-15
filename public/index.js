@@ -19,6 +19,7 @@
           form.classList.remove('validation-failed');
         }
         form.classList.add('was-validated');
+        event.preventDefault();
       }, false);
     });
   }, false);
@@ -57,7 +58,7 @@ $(document).ready(function () {
           language: {
             search: "_INPUT_",
           },
-          order: [[2, "asc"]],
+          order: [[2, "asc"], [0, "desc"]],
           columns: [
             { data: "id", visible: false },
             { data: "time", visible: false, className: "dragHandle dt-nowrap" },
@@ -153,10 +154,13 @@ $(document).ready(function () {
         time: "Unscheduled",
         name: $("#createSessionModal #inputSessionName").val(),
         host: $("#createSessionModal #inputHostName").val(),
-        hostlink: $("#createSessionModal #inputHostLink").val(),
+        hostlink: $("#createSessionModal #inputHostLink").val() || '',
         duration: $("#createSessionModal #inputDuration").val()  || '0',
-        description: $("#createSessionModal #inputDescription").val(),
+        description: $("#createSessionModal #inputDescription").val()
+        // deleted: '0'
       };
+
+      console.log('submit data', data);
 
       fetch("/session", {
         method: "POST",
@@ -169,6 +173,7 @@ $(document).ready(function () {
           $("#error-body").text(response.text);
           errorModal.show();
         } else {
+          $('#createSessionModal').modal('hide');
           $("input, textarea").each((i, el) => {
             $(el).val("");
           });
@@ -189,11 +194,13 @@ $(document).ready(function () {
         time: $("#updateSessionModal #updateSessionTime").val() || "Unscheduled",
         name: $("#updateSessionModal #updateSessionName").val(),
         host: $("#updateSessionModal #updateHostName").val(),
-        hostlink: $("#updateSessionModal #updateHostLink").val(),
+        hostlink: $("#updateSessionModal #updateHostLink").val() || '',
         duration: $("#updateSessionModal #updateDuration").val() || '0',
-        description: $("#updateSessionModal #updateDescription").val(),
-        deleted: $("#updateSessionModal #updateDeleted").val(),
+        description: $("#updateSessionModal #updateDescription").val()
+        // deleted: $("#updateSessionModal #updateDeleted").val() || 0,
       };
+
+      console.log('update data', data);
 
       fetch("/session", {
         method: "PUT",
@@ -208,7 +215,7 @@ $(document).ready(function () {
             errorModal.show();
           });
         } else {
-          // $('#updateSessionModal').modal('hide');
+          $('#updateSessionModal').modal('hide');
           $("input, textarea").each((i, el) => {
             $(el).val("");
           });
@@ -228,7 +235,7 @@ $(document).ready(function () {
     $("#updateSessionModal #updateDescription").val(data.description);
     $("#updateSessionModal #updateDuration").val(data.duration);
     $("#updateSessionModal #updateSessionTime").val(data.time);
-    $("#updateSessionModal #updateDeleted").val(data.deleted);
+    // $("#updateSessionModal #updateDeleted").val(data.deleted);
   };
 
 
