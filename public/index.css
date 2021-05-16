@@ -136,6 +136,8 @@ main {
   width: 100%;
 }
 
+
+
 .session-item .header {
   display: flex;
   justify-content: space-between;
@@ -144,8 +146,12 @@ main {
 .session-item .header small {
   border-radius: 5px;
   padding: .2em .4em;
-  background: rgba(135,131,120,.15);
+  background: rgba(220,53,69,.1);
   font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,Courier;
+}
+
+.session-item.scheduled .header small {
+  background: rgba(40,167,69,.15);
 }
 
 .session-item .header h3 {

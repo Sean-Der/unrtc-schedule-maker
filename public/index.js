@@ -26,6 +26,11 @@
 })();
 
 $(document).ready(function () {
+
+  const hasNumber = (myString) => {
+    return /\d/.test(myString);
+  }
+
   let table = null;
   const errorModal = new bootstrap.Modal(
     document.getElementById("errorModal"),
@@ -75,7 +80,7 @@ $(document).ready(function () {
 
                   $(nTd).html(
                     `
-                    <div class='session-item'>
+                    <div id="session-item-${oData.id}" class='session-item ${(oData.time != 'Unscheduled' && hasNumber(oData.time)) ? "scheduled" : "unscheduled"}'>
                       <div class='header'>
                         <div class='summary'>
                           <small>${oData.time} (${oData.duration} mins)</small>
