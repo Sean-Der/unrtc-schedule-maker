@@ -37,6 +37,9 @@ $(document).ready(function () {
     {}
   );
 
+  var idColumn = 0;
+  var groupColumn = 1;
+
   const populateSessions = () => {
     // console.log('populateSessions');
     fetch("/sessions")
@@ -48,22 +51,18 @@ $(document).ready(function () {
           return;
         }
 
-        console.log("populateSessions data", data);
+
 
         table = $("#scheduleTable").DataTable({
           responsive: true,
           data: data,
           paging: false,
-          // ordering: false,
           searching: false,
           bInfo: false,
-          fixedColumns: {
-            leftColumns: 1,
-          },
           language: {
             search: "_INPUT_",
           },
-          order: [[2, "asc"], [0, "desc"]],
+          order: [[groupColumn, "asc"], [idColumn, "desc"]],
           columns: [
             { data: "id", visible: false },
             { data: "time", visible: false, className: "dragHandle dt-nowrap" },
@@ -78,12 +77,20 @@ $(document).ready(function () {
                     host = `<a href='${oData.hostlink}' target='_blank'>${oData.host}</a>`
                   }
 
+                  var time = oData.time;
+
+                  if((oData.time != 'Unscheduled' && hasNumber(oData.time)) && oData.duration) {
+                    var startDate = moment(time, "h:mm")
+                    var endDate = moment(time, "h:mm").add(oData.duration, 'minutes')
+                    time = startDate.format("h:mm") + " - " + endDate.format("h:mm")
+                  }
+
                   $(nTd).html(
                     `
                     <div id="session-item-${oData.id}" class='session-item ${(oData.time != 'Unscheduled' && hasNumber(oData.time)) ? "scheduled" : "unscheduled"}'>
                       <div class='header'>
                         <div class='summary'>
-                          <small>${oData.time} (${oData.duration} mins)</small>
+                          <small>${time} (${oData.duration} mins)</small>
                           <h3>${oData.name}</h3>
                           <h5>${host}</h5>
                         </div>
@@ -131,7 +138,22 @@ $(document).ready(function () {
             //   defaultContent:
             //     "<button class='btn btn-success join'>Join</button><button class='btn btn-light update' data-bs-toggle='modal' data-bs-target='#updateSessionModal'>Edit</button>",
             // }
-          ]
+          ],
+          drawCallback: function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last = null;
+
+            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="6">'+group+'</td></tr>'
+                    );
+
+                    last = group;
+                }
+            } );
+          }
         });
 
         $(".dataTables_length").addClass("bs-select");
@@ -242,11 +264,6 @@ $(document).ready(function () {
     $("#updateSessionModal #updateSessionTime").val(data.time);
     // $("#updateSessionModal #updateDeleted").val(data.deleted);
   };
-
-
-  // $("#scheduleTable").tableDnD({
-  //   dragHandle: ".dragHandle",
-  // });
 
 
   populateSessions();
