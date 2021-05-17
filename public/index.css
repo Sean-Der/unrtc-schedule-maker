@@ -164,6 +164,10 @@ main {
   white-space: normal;
 }
 
+.session-item.unscheduled button.join {
+  display: none;
+}
+
 
 .session-item .description {
   margin-top: 10px;
