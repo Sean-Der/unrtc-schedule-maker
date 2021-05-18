@@ -31,6 +31,79 @@ $(document).ready(function () {
     return /\d/.test(myString);
   }
 
+  let galeneServers = {
+    1: 'galene-a.unrtc.co',
+    2: 'galene-b.unrtc.co',
+    3: 'galene-c.unrtc.co'
+  }
+
+  let sessionServerMap = {
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 1,
+    5: 2,
+    6: 3,
+    7: 1,
+    8: 2,
+    9: 2,
+    10: 3,
+    11: 1,
+    12: 2,
+    13: 3,
+    14: 1,
+    15: 2,
+    16: 3,
+    14: 1,
+    15: 2,
+    16: 3,
+    17: 1,
+    18: 2,
+    19: 3,
+    20: 1,
+    21: 2,
+    22: 3,
+    23: 1,
+    24: 2,
+    25: 3,
+    26: 1,
+    27: 2,
+    28: 3,
+    29: 1,
+    30: 2,
+    31: 3,
+    32: 1,
+    33: 2,
+    33: 3,
+    32: 1,
+    33: 2,
+    34: 3,
+    35: 1,
+    36: 2,
+    37: 3,
+    38: 1,
+    39: 2,
+    40: 3,
+    41: 1,
+    42: 2,
+    43: 3,
+    41: 1,
+    42: 2,
+    43: 3,
+    44: 1,
+    45: 2,
+    46: 3,
+    47: 1,
+    48: 2,
+    49: 3,
+    50: 1
+  }
+
+  let getServerById = (id) => {
+    // console.log('getServerById > id, server', id, galeneServers[sessionServerMap[id]]);
+    return galeneServers[sessionServerMap[id]];
+  }
+
   let table = null;
   const errorModal = new bootstrap.Modal(
     document.getElementById("errorModal"),
@@ -84,6 +157,8 @@ $(document).ready(function () {
                     var endDate = moment(time, "h:mm").add(oData.duration, 'minutes')
                     time = startDate.format("h:mm") + " - " + endDate.format("h:mm")
                   }
+
+                  oData.server = getServerById(oData.id)
 
                   $(nTd).html(
                     `
@@ -162,7 +237,8 @@ $(document).ready(function () {
 
         $("#scheduleTable tbody").on("click", "button.join", function () {
           const data = table.row($(this).parents("tr")).data();
-          window.open(`https://unrtc.co/group/session-${data.id}`);
+          console.log("join: " + data.id + " > " + data.server);
+          window.open(`https://${data.server}/group/session-${data.id}`);
         });
 
         $("#scheduleTable tbody").on("click", "button.update", function () {
